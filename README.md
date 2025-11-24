@@ -154,6 +154,7 @@ GITHUB_PROJECT=junyiacademy/my-project
 3. 設定 Bot Token Scopes:
 <img src="img/env_slack_2_oauth_permission_setting.png" alt="demo_2" width="60%">
 <img src="img/env_slack_3_oauth_permission_scope.png" alt="demo_3" width="60%">
+
 請加入以下權限
 - `app_mentions:read` - 檢視在應用程式所在對話中直接提及 @Bot
 - `channels:history` - 檢視 @Bot 已加入的公開頻道中的訊息與內容
