@@ -45,6 +45,7 @@ class SlackService:
             Slack Channel ID: {slack_channel_id}
             Slack Thread ID: {slack_thread_id}
             analysis_result:{analysis_result}
+            FEEDBACK_URL: {self.config.FEEDBACK_URL}
             GITHUB_SLACK_USER_MAPPING: {self.config.GITHUB_SLACK_USER_MAPPING}
             github_repo_url: https://github.com/{self.config.GITHUB_PROJECT}
             請閱讀 {prompt_file} 並根據指示執行 prompt

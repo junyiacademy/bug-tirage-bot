@@ -30,11 +30,12 @@ Slack Thread ID: {slack_thread_id}
 順位2. tag analysis_result.recommended_person
 （建議原因：系統判斷對該 module 熟悉的人，<analysis_result.recommended_reason>）
 
-=> 歡迎填寫<https://docs.google.com/forms/d/e/1FAIpQLScHedHqx150rNXePPlg2OaejiJxZsYzYpFUisu-JOgmOK_HUQ/viewform?pli=1&usp=pp_url&entry.1525688678={slack_link}|問卷> 回饋此次 AI 分析結果
+
 
 ========================
 
 - 如果有 suspect_commit_author 或 recommended_person 且<GITHUB_SLACK_USER_MAPPING> 不會空 ，可以根據 <GITHUB_SLACK_USER_MAPPING> 內容去找到 slack_username 來去 tag
+- 如果 <FEEDBACK_URL> 不是空的請在最後一段加上 「=> 歡迎填寫<FEEDBACK_URL> 回饋此次 AI 分析結果」
 - 如何產生 {slack_link}
   - Slack 連結格式如下：https://junyiacademy.slack.com/archives/{slack_channel_id}/p{ts_no_dot}?thread_ts={slack_thread_id}
   - 其中：ts_no_dot = 將 slack_thread_id 的小數點移除(例如：1763059193.030299 → 1763059193030299)
