@@ -208,15 +208,18 @@ GITHUB_SLACK_USER_MAPPING = {"github_username1":"slack.username1","github_userna
     <img src="img/env_gcp_4_GCP_key.png" alt="demo_1" width="60%">
 
   3. 選擇 JSON 格式下載
-    <img src="img/env_gcp_5_GCP_key_json.png" alt="demo_1" width="60%">
+
+  <img src="img/env_gcp_5_GCP_key_json.png" alt="demo_1" width="60%">
   4. 從 JSON 檔案中複製 project_id & client_email & private_key
+
    <img src="img/env_gcp_6_GCP_copy_key.png" alt="demo_1" width="60%">
-    - 複製`project_id` 欄位的值到 .env `GCP_PROJECT_ID`
-    - 複製 `client_email` 欄位的值到 .env `GCP_SERVICE_ACCOUNT_EMAIL`
-      - 格式: `bug-triage-bot@junyiacademy.iam.gserviceaccount.com`
-    - 複製`private_key` 欄位的值到 .env `GCP_SERVICE_ACCOUNT_PRIVATE_KEY`
-      - **注意**: 需要包含完整的 `-----BEGIN PRIVATE KEY-----` 和 `-----END PRIVATE KEY-----`
-      - 換行符號用 `\n` 表示
+
+  - 複製`project_id` 欄位的值到 .env `GCP_PROJECT_ID`
+  - 複製 `client_email` 欄位的值到 .env `GCP_SERVICE_ACCOUNT_EMAIL`
+    - 格式: `bug-triage-bot@junyiacademy.iam.gserviceaccount.com`
+  - 複製`private_key` 欄位的值到 .env `GCP_SERVICE_ACCOUNT_PRIVATE_KEY`
+    - **注意**: 需要包含完整的 `-----BEGIN PRIVATE KEY-----` 和 `-----END PRIVATE KEY-----`
+    - 換行符號用 `\n` 表示
 
 ```py
 GCP_PROJECT_ID=your-gcp-project-id
