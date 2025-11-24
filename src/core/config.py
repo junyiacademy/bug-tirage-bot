@@ -21,6 +21,7 @@ class Config:
     # Logging Configuration
     PROJECT: str = os.getenv("PROJECT", "DEV")
     CODEBASE_DIR: str = str(Path(__file__).parent.parent.parent / "external_codebase")
+    FEEDBACK_URL: str = os.getenv("FEEDBACK_URL", "")
 
     # GitHub Configuration
     GITHUB_TOKEN: str = os.getenv("GITHUB_TOKEN", "")
