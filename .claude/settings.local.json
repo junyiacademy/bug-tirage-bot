@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__slack__slack_get_thread_replies",
+      "mcp__slack__slack_reply_to_thread",
+      "Bash(grep:*)",
+      "mcp__github__get_file_contents",
+      "mcp__github__search_repositories",
+      "mcp__github__list_issues",
+      "mcp__github__search_issues",
+      "mcp__github__get_issue",
+      "Bash(curl:*)",
+      "Bash(curl https://datastore.googleapis.com/v1/projects/:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

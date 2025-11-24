@@ -1,0 +1,11 @@
+.env
+
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+
+# Codebase
+external_codebase/

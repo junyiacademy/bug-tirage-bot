@@ -1,0 +1,15 @@
+services:  
+  bug-triage:
+    image: bug-triage-bot
+    build:
+      context: .
+    working_dir: /app
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    ports:
+      - "8080:8080" 
+    stdin_open: true
+    tty: true
+
