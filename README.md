@@ -154,16 +154,16 @@ GITHUB_PROJECT=junyiacademy/my-project
 3. 設定 Bot Token Scopes:
 <img src="img/env_slack_2_oauth_permission_setting.png" alt="demo_2" width="60%">
 <img src="img/env_slack_3_oauth_permission_scope.png" alt="demo_3" width="60%">
-  請加入以下權限
-  - `app_mentions:read` - 檢視在應用程式所在對話中直接提及 @Bot
-  - `channels:history` - 檢視 @Bot 已加入的公開頻道中的訊息與內容
-  - `channels:read` - 檢視工作區內公開頻道的基本資訊
-  - `channels:history` - 檢視 Bug analyst 已加入的公開頻道中的訊息與內容
-  - `channels:read` - 檢視工作區內公開頻道的基本資訊
-  - `chat:write` - 以 @Bug analyst 身份發送訊息
-  - `groups:history` - 檢視 Bug analyst 已加入的私人頻道中的訊息與內容
-  - `groups:read` - 檢視 Bug analyst 已加入的私人頻道基本資訊
-  - `reactions:write` - 新增與編輯表情符號反應
+請加入以下權限
+- `app_mentions:read` - 檢視在應用程式所在對話中直接提及 @Bot
+- `channels:history` - 檢視 @Bot 已加入的公開頻道中的訊息與內容
+- `channels:read` - 檢視工作區內公開頻道的基本資訊
+- `channels:history` - 檢視 Bug analyst 已加入的公開頻道中的訊息與內容
+- `channels:read` - 檢視工作區內公開頻道的基本資訊
+- `chat:write` - 以 @Bug analyst 身份發送訊息
+- `groups:history` - 檢視 Bug analyst 已加入的私人頻道中的訊息與內容
+- `groups:read` - 檢視 Bug analyst 已加入的私人頻道基本資訊
+- `reactions:write` - 新增與編輯表情符號反應
 4. 安裝 App 到 Slack workspace 工作區
 <img src="img/env_slack_4_install_app.png" alt="demo_4" width="60%">
 5. 複製 "Bot User OAuth Token" (以 `xoxb-` 開頭)，貼到 .env 的 `SLACK_BOT_TOKEN`
