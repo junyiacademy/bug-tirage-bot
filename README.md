@@ -4,7 +4,7 @@
 
 Bug Triage Bot 是一套自動化的錯誤分析服務，能協助開發團隊在遇到軟體 Bug 時，快速收斂問題、解析原因、整理可執行的修復建議，並自動將分析結果即時發佈到指定的 Slack 討論串。
 
-核心特色包括：
+###  核心特色包括：
 
 - 問題分析：自動下載 GitHub codebase，分析最新程式碼內容，結合錯誤訊息、堆疊追蹤和系統脈絡，協助找出 root cause。
 - 脈絡讀取：可利用 Slack MCP 讀取完整的討論串內容，綜合上下文判斷，強化診斷品質。
@@ -39,16 +39,16 @@ flowchart LR
 
 - 可以設定當問題被回報時，可以 tag bot，並自動讀取 slack 訊息進行分析
 
-<img src="img/demo_report_1.png" alt="demo_1" width="50%">
-<img src="img/demo_report_2.png" alt="demo_2" width="50%">
+<img src="img/demo_report_1.png" alt="demo_1" width="70%">
+<img src="img/demo_report_2.png" alt="demo_2" width="70%">
 
 ### （使用情境）針對串接到 Slack 的 Error 進行自動分析
 
 可以設定當新的 Slack Error 訊息出現後，進行自動分析
 
-<img src="img/demo_error_report_1.png" alt="demo_1" width="50%">
-<img src="img/demo_error_report_2.png" alt="demo_2" width="50%">
-<img src="img/demo_error_report_3.png" alt="demo_3" width="50%">
+<img src="img/demo_error_report_1.png" alt="demo_1" width="70%">
+<img src="img/demo_error_report_2.png" alt="demo_2" width="70%">
+<img src="img/demo_error_report_3.png" alt="demo_3" width="70%">
 
 
 ## 📁 專案結構
@@ -328,6 +328,8 @@ tail -f log/app.log
 2. 打開 Google Cloud Console，找到 Cloud Run 服務
 3. 建立新服務時，選擇「連接儲存庫」（Connect repo），選擇剛剛 fork 的 GitHub repo
 4. 按照導引設定自動部署，Cloud Run 會自動從你的 repo build 並部署服務
+
+- 設定 Memory: 2 GB / 2 CPU
 
 <img src="img/deploy_cloud_run.png" alt="deploy_cloud_run" width="60%">
 
