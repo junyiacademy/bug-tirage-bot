@@ -23,7 +23,7 @@ Slack Thread ID: {slack_thread_id}
 <analysis_result.suggestion>
 
 ▌建議排查順序
-順位1. tag analysis_result.suspect_commit_author （if 如果有 analysis_result.suspect_commit_author，沒有則直接下個順位）
+順位1. tag analysis_result.suspect_commit_author （if 如果有 analysis_result.suspect_commit_author 且同時  <GITHUB_SLACK_USER_MAPPING> 要找得到該成員，沒有則直接下個順位）
 
 （建議原因：系統判斷可能為 suspect commit <github_repo_url>/commit/<analysis_result.suspect_commit> 的作者 ） 
 
@@ -34,7 +34,7 @@ Slack Thread ID: {slack_thread_id}
 
 ========================
 
-- 如果有 suspect_commit_author 或 recommended_person 且<GITHUB_SLACK_USER_MAPPING> 不會空 ，可以根據 <GITHUB_SLACK_USER_MAPPING> 內容去找到 slack_username 來去 tag（但如果找不到，表示該員已經離職，就不要 tag 該順位）
+- 如果有 suspect_commit_author 或 recommended_person 且<GITHUB_SLACK_USER_MAPPING> 不會空 ，可以根據 <GITHUB_SLACK_USER_MAPPING> 內容去找到 slack_username 來去 tag（但找不到就忽略）
 - 如果 <FEEDBACK_URL> 不是空的請在最後一段加上 「=> 歡迎填寫<FEEDBACK_URL> 回饋此次 AI 分析結果」
 - 如何產生 {slack_link}
   - Slack 連結格式如下：https://junyiacademy.slack.com/archives/{slack_channel_id}/p{ts_no_dot}?thread_ts={slack_thread_id}
