@@ -78,8 +78,7 @@ bug-triage/
 ### 1.安裝
 
 ```bash
-git clone git@github.com:junyiacademy/junyi-tools.git
-cd junyi-tools/bug-triage
+git clone git@github.com:junyiacademy/bug-tirage-bot.git
 ```
 
 ### 2. 環境設定

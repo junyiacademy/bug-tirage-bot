@@ -18,7 +18,12 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | b
  && nvm alias default 20 \
  && node -v && npm -v
 
-ENV PATH="/root/.nvm/versions/node/v20.21.1/bin:$PATH"
+# 动态获取 Node 版本路径，而不是硬编码
+RUN echo 'export PATH="/root/.nvm/versions/node/$(node -v | sed "s/v//")/bin:$PATH"' >> /root/.bashrc
+
+# 设置 PATH（使用 nvm 的默认路径）
+ENV PATH="/root/.nvm/versions/node/v20.21.1/bin:/usr/local/bin:$PATH"
+
 
 WORKDIR /app
 COPY . /app
@@ -29,6 +34,7 @@ RUN python3 -m pip install --upgrade pip && \
 
 # 安裝 Claude Code CLI（SDK 需要）
 RUN npm install -g @anthropic-ai/claude-code
+    which claude || (echo "Error: claude command not found in PATH" && exit 1)
 # 安裝 MCP server
 RUN npm install -g @zencoderai/slack-mcp-server
 
@@ -47,7 +53,7 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8080/health || exit 1
 
-ENV PATH="/root/.nvm/versions/node/v20.19.5/bin:$PATH"
+
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["python3", "main.py"]

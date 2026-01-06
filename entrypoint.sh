@@ -17,14 +17,17 @@ if [ -f /app/.env ]; then
     echo "Loaded environment variables from .env file"
 fi
 
-# 設定 Claude MCP Slack 連線
+# 設定 Claude MCP Slack 連線 (只在有必要的環境變數時執行)
 if [ -n "$SLACK_BOT_TOKEN" ] && [ -n "$SLACK_TEAM_ID" ] ; then
     echo "Setting up Claude MCP Slack..."
-    claude mcp add slack \
+    if claude mcp add slack \
         --env SLACK_BOT_TOKEN="$SLACK_BOT_TOKEN" \
         --env SLACK_TEAM_ID="$SLACK_TEAM_ID" \
-        -- npx -y @zencoderai/slack-mcp-server 
-    echo "Claude MCP Slack setup completed"
+        -- npx -y @zencoderai/slack-mcp-server; then
+        echo "Claude MCP Slack setup completed"
+    else
+        echo "Claude MCP Slack setup failed, continuing anyway..."
+    fi
 else
     echo "SLACK_BOT_TOKEN or SLACK_TEAM_ID is not found, skipping MCP setup"
 fi
@@ -38,17 +41,27 @@ fi
 # 設定 Claude Github MCP 連線
 if [ -n "$GITHUB_TOKEN" ]; then
     echo "Setting up Github MCP ..."
-    claude mcp add --transport http github https://api.githubcopilot.com/mcp -H "Authorization: Bearer $GITHUB_TOKEN"
-    echo "Claude MCP Github setup completed"
+    if claude mcp add --transport http github https://api.githubcopilot.com/mcp -H "Authorization: Bearer $GITHUB_TOKEN"; then
+        echo "Claude MCP Github setup completed"
+    else
+        echo "Claude MCP Github setup failed, continuing anyway..."
+    fi
 else
-    echo "SLACK_BOT_TOKEN not found, skipping MCP setup"
+    echo "GITHUB_TOKEN not found, skipping MCP setup"
 fi
 
 echo "Starting Python application..."
+echo "Current PROJECT environment variable: '$PROJECT'"
 
 # 執行原本的命令
 if [ "$PROJECT" = "DEV" ]; then
     echo "PROJECT=DEV，跳過自動啟動，保持容器存活"
     exec tail -f /dev/null
+elif [ "$PROJECT" = "PRD" ]; then
+    echo "PROJECT=PRD，啟動 Python 應用程式"
+    exec "$@"
+else
+    echo "PROJECT 未設定或不明，預設啟動應用程式"
+    echo "執行命令: $@"
+    exec "$@"
 fi
-exec "$@"
