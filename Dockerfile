@@ -14,11 +14,9 @@ RUN apt-get update && apt-get install -y curl ca-certificates git jq && rm -rf /
 ENV NVM_DIR=/root/.nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
  && source $NVM_DIR/nvm.sh \
- && nvm install 20 \
- && nvm alias default 20 \
+ && nvm install 20.19.6 \
+ && nvm alias default 20.19.6 \
  && node -v && npm -v
-
-ENV PATH="/root/.nvm/versions/node/v20.21.1/bin:$PATH"
 
 WORKDIR /app
 COPY . /app
@@ -47,7 +45,7 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8080/health || exit 1
 
-ENV PATH="/root/.nvm/versions/node/v20.19.5/bin:$PATH"
+ENV PATH="/root/.nvm/versions/node/v20.19.6/bin:$PATH"
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["python3", "main.py"]
