@@ -43,12 +43,22 @@ class BugTriageService:
             raise
     
     def clone_or_update_repository(self) -> bool:
-        """Clone or update GitHub repository"""
+        """Clone or update GitHub repository and checkout to deployed commit"""
         try:
-            return self.git_utils.clone_or_update_repository(
+            # Step 1: Clone/update repository
+            clone_success = self.git_utils.clone_or_update_repository(
                 self.config.GITHUB_TOKEN, 
                 self.config.GITHUB_PROJECT
             )
+            if not clone_success:
+                return False
+            
+            # Step 2: Checkout to latest deployed commit to exclude undeployed commits
+            checkout_success = self.git_utils.checkout_to_deployed_commit()
+            if not checkout_success:
+                logger.warning("Failed to checkout to deployed commit, proceeding with master HEAD")
+            
+            return True
         except Exception as e:
             logger.error(f"Repository operation failed: {e}")
             raise GitOperationError(f"Failed to clone/update repository: {e}")

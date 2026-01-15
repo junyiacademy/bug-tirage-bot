@@ -49,3 +49,81 @@ class GitUtils:
         except Exception as e:
             logger.error(f"Repository operation failed: {e}")
             return False
+
+    def get_latest_deployed_commit(self) -> Optional[str]:
+        """Get the latest deployed commit hash using prod- tags"""
+        try:
+            # 查找最新的 prod- 開頭的 tag
+            result = subprocess.run(
+                ['git', 'tag', '--sort=-creatordate', '--list', 'prod-*'],
+                cwd=self.codebase_dir,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            
+            tags = result.stdout.strip().split('\n') if result.stdout.strip() else []
+            if not tags or not tags[0]:
+                logger.warning("No prod- tags found, will analyze all commits")
+                return None
+            
+            latest_prod_tag = tags[0]
+            logger.info(f"Found latest production tag: {latest_prod_tag}")
+            
+            # 取得該 tag 對應的 commit hash
+            tag_result = subprocess.run(
+                ['git', 'rev-list', '-n', '1', latest_prod_tag],
+                cwd=self.codebase_dir,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            
+            commit_hash = tag_result.stdout.strip()
+            logger.info(f"Latest deployed commit: {commit_hash}")
+            return commit_hash
+            
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Failed to get latest deployed commit: {e}")
+            return None
+        except Exception as e:
+            logger.error(f"Failed to get latest deployed commit: {e}")
+            return None
+
+    def checkout_to_deployed_commit(self, commit_hash: Optional[str] = None) -> bool:
+        """Checkout to the latest deployed commit to exclude undeployed commits from analysis"""
+        try:
+            if not commit_hash:
+                commit_hash = self.get_latest_deployed_commit()
+                
+            if not commit_hash:
+                logger.warning("No deployed commit found, staying on master HEAD (may include undeployed commits)")
+                return True
+            
+            # 先確保在正確的分支
+            subprocess.run(
+                ['git', 'checkout', 'master'],
+                cwd=self.codebase_dir,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            
+            # 切換到特定的 deployed commit
+            subprocess.run(
+                ['git', 'checkout', commit_hash],
+                cwd=self.codebase_dir,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            
+            logger.info(f"Checked out to deployed commit: {commit_hash} (excluding undeployed commits from analysis)")
+            return True
+            
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Failed to checkout to deployed commit: {e}")
+            return False
+        except Exception as e:
+            logger.error(f"Checkout operation failed: {e}")
+            return False
